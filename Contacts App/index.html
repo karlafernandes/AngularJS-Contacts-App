@@ -26,6 +26,15 @@
                 <div class="form-group">
                     <input ng-model="search" type="text" class="form-control" id="search" placeholder="Search ..." />
                 </div>
+                <span class="glyphicon glyphicon glyphicon-sort-by-order"></span>
+                <div class="form-group">
+                    <select class="form-control" ng-model="order">
+                        <option value="name">Name (ASC)</option>
+                        <option value="-name">Name (DEC)</option>
+                        <option value="email">E-mail (ASC)</option>
+                        <option value="-email">E-mail (DEC)</option>
+                    </select>
+                </div>
             </form>
         </div>
     </div>
@@ -38,7 +47,7 @@
                     <th>Email</th>
                     <th>Birthday</th>
                 </tr>
-                <tr ng-repeat="person in persons | filter: sensitiveSearch"
+                <tr ng-repeat="person in persons | filter: sensitiveSearch | orderBy: order"
                     ng-style="{
                 'background-color': $index == selectedIndex ? '#f7f7f7' : ''
             }"
