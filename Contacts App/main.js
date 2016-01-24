@@ -2,6 +2,7 @@ var app = angular.module("codecraft", []);
 
 app.controller('PersonsController', function ($scope) {
 
+    $scope.search = {};
     $scope.selectedIndex = null;
     $scope.selectedPerson = null;
 
