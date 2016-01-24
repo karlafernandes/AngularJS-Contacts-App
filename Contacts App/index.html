@@ -53,7 +53,7 @@
                     </th>
                     <th>Birthday</th>
                 </tr>
-                <tr ng-repeat="person in persons | filter: sensitiveSearch | orderBy: order"
+                <tr ng-repeat="person in filteredPersons = (persons | filter: sensitiveSearch | orderBy: order)"
                     ng-style="{
                 'background-color': person.email == selectedPerson.email ? '#f7f7f7' : ''
             }"
@@ -62,6 +62,11 @@
                     <td>{{ person.name }}</td>
                     <td>{{ person.email }}</td>
                     <td>{{ person.birthdate | date:"longDate" }}</td>
+                </tr>
+                <tr ng-show="filteredPersons.length == 0">
+                    <td colspan="4">
+                        <div class="alert alert-info">No results for '<b>{{ search }}</b>'</div>
+                    </td>
                 </tr>
             </table>
         </div>
