@@ -18,8 +18,6 @@ app.controller("MinMaxCtrl", function ($scope, $http) {
     $scope.submitted = false;
     $scope.has_error = false;
 
-
-
     $scope.onSubmit = function () {
         $scope.submitting = true;
         console.log("Hey i"m submitted!");
