@@ -24,13 +24,18 @@
             <form class="form-inline well well-lg">
                 <span class="glyphicon glyphicon-search"></span>
 
+                <!-- search in all attributes -->
                 <div class="form-group">
+                    <input ng-model="search.$" type="text" class="form-control" id="search" placeholder="Search ..." />
+                </div>
+
+                <!-- div class="form-group">
                     <input ng-model="search.name" type="text" class="form-control" id="name" placeholder="Search Name..." />
                 </div>
 
                 <div class="form-group">
                     <input ng-model="search.email" type="text" class="form-control" id="email" placeholder="Search Email..." />
-                </div>
+                </div -->
             </form>
         </div>
     </div>
