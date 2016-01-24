@@ -19,27 +19,51 @@
 
 <div class="container main-content" ng-controller="PersonsController">
 
-    <table class="table table-bordered">
-
-        <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Birthday</th>
-        </tr>
-
-        <tr ng-repeat="person in persons"
-            ng-style="{
+    <div class="row">
+        <div class="col-md-8">
+            <table class="table table-bordered">
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Birthday</th>
+                </tr>
+                <tr ng-repeat="person in persons"
+                    ng-style="{
                 'background-color': $index == selectedIndex ? '#f7f7f7' : ''
             }"
-            ng-click="selectPerson($index)">
-            <td>{{ $index+1 }}</td>
-            <td>{{ person.name }}</td>
-            <td>{{ person.email }}</td>
-            <td>{{ person.birthdate | date:"longDate" }}</td>
-        </tr>
-
-    </table>
+                    ng-click="selectPerson(person, $index)">
+                    <td>{{ $index+1 }}</td>
+                    <td>{{ person.name }}</td>
+                    <td>{{ person.email }}</td>
+                    <td>{{ person.birthdate | date:"longDate" }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">Detailed Information</div>
+                <div class="panel-body">
+                    <dl>
+                        <dd>Name</dd>
+                        <dt>{{ selectedPerson.name }}</dt>
+                        <dd>Email</dd>
+                        <dt>{{ selectedPerson.email }}</dt>
+                        <dd>Birthday</dd>
+                        <dt>{{ selectedPerson.birthdate | date:"longDate" }}</dt>
+                        <dd>Phone</dd>
+                        <dt>{{ selectedPerson.phonenumber }}</dt>
+                        <dd>Address</dd>
+                        <dt>{{ selectedPerson.address }}</dt>
+                        <dd>City</dd>
+                        <dt>{{ selectedPerson.city }}</dt>
+                        <dd>Country</dd>
+                        <dt>{{ selectedPerson.country }}</dt>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 
