@@ -1,7 +1,7 @@
 <!DOCTYPE html >
 <html lang="en" ng-app="minmax">
 <head >
-	<title >Form Validation - Part 2</title >
+	<title >Form Validation - Part 3</title >
 	<link href="../libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" >
 	<link href="main.css" rel="stylesheet" >
 </head >
@@ -19,23 +19,17 @@
 
 <div class="container main-content" ng-controller="MinMaxCtrl">
 
-	<form ng-submit="onSubmit(theForm.$valid)"
-	      name="theForm"
-				novalidate="novalidate">
+	<form ng-submit="onSubmit()"
+		  novalidate="novalidate">
 		<div class="form-group" >
 			<label for="name" >Name</label >
 			<input type="text"
 			       class="form-control"
 			       ng-model="formModel.name"
-			       id="name" >
+			       id="name" required="required">
 		</div >
 
-		<div class="form-group" ng-class="
-			{
-			'has-error':!theForm.email.$valid && (!theForm.$pristine || theForm.$submitted),
-			'has-success':theForm.email.$valid && (!theForm.$pristine || theForm.$submitted)
-			}
-		">
+		<div class="form-group" >
 			<label for="email" class="control-label">Email</label >
 			<input type="email"
 			       class="form-control"
@@ -44,18 +38,6 @@
 					   required="required"
 					   name="email">
 
-			<p class="help-block" ng-show="theForm.email.$error.required && (!theForm.$pristine || theForm.$submitted)">
-				This field is required
-			</p>
-			<p class="help-block" ng-show="theForm.email.$error.email && (!theForm.$pristine || theForm.$submitted)">
-				Please enter an email with at least an @ symbol
-			</p>
-
-			<!--<pre>Validation {{ theForm.email.$error | json }}</pre>-->
-			<!--<pre>Field Valid? {{ theForm.email.$valid }}</pre>-->
-			<!--<pre>Form Pristine? {{ theForm.$pristine }}</pre>-->
-			<!--<pre>Form Submitted? {{ theForm.$submitted }}</pre>-->
-
 		</div >
 
 		<div class="form-group" >
@@ -63,15 +45,22 @@
 			<input type="text"
 			       class="form-control"
 			       ng-model="formModel.username"
-			       id="username" >
+				   ng-pattern="/^[A-Za-z0-9_]{1,32}$/"
+				   ng-pattern-err-type="badUsername"
+				   ng-minlength="7"
+			       id="username" required="required">
 		</div >
 
 		<div class="form-group" >
 			<label for="age" >Age</label >
 			<input type="number"
+				   min="18"
+				   max="64"
 			       class="form-control"
 			       ng-model="formModel.age"
-			       id="age" >
+				   ng-min-err-type="tooYoung"
+				   ng-max-err-type="tooOld"
+			       id="age" required="required">
 		</div >
 
 		<div class="form-group" >
@@ -82,7 +71,7 @@
 				<option value="" >Please Choose</option >
 				<option value="male" >Male</option >
 				<option value="female" >Female</option >
-			</select >
+			</select required="required">
 		</div >
 
 		<div class="form-group" >
@@ -90,7 +79,8 @@
 			<input type="password"
 			       class="form-control"
 			       ng-model="formModel.password"
-			       id="password" >
+				   ng-minlength="10"
+			       id="password" required="required">
 		</div >
 
 		<div class="form-group">
@@ -101,12 +91,14 @@
 
 	</form >
 
-	<pre>{{ theForm | json }}</pre>
+	<pre>{{ formModel | json }}</pre>
 
 </div >
 
 
+
 <script src="../libs/angular/angular.min.js" ></script >
+<script src="../libs/angular-auto-validate/dist/jcs-auto-validate.min.js" ></script >
 <script src="main.js" ></script >
 
 
