@@ -20,7 +20,7 @@ app.controller("MinMaxCtrl", function ($scope, $http) {
 
     $scope.onSubmit = function () {
         $scope.submitting = true;
-        console.log("Hey i"m submitted!");
+        console.log("Hey i am submitted!");
         console.log($scope.formModel);
 
         $http.post("https://minmax-server.herokuapp.com/register/", $scope.formModel).
