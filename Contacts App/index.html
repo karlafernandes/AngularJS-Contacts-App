@@ -32,7 +32,7 @@
             <td>{{ $index+1 }}</td>
             <td>{{ person.name }}</td>
             <td>{{ person.email }}</td>
-            <td>{{ person.birthdate }}</td>
+            <td>{{ person.birthdate | date:"longDate" }}</td>
         </tr>
 
     </table>
