@@ -1,7 +1,7 @@
 <!DOCTYPE html >
 <html lang="en" ng-app="minmax" >
 <head >
-	<title >Form Validation - Part 1</title >
+	<title >Form Validation - Part 2</title >
 	<link href="../libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" >
 	<link href="main.css" rel="stylesheet" >
 </head >
@@ -19,7 +19,9 @@
 
 <div class="container main-content" ng-controller="MinMaxCtrl" >
 
-	<form name="theForm" ng-submit="onSubmit()" >
+	<form name="theForm"
+          ng-submit="onSubmit(theForm.$valid)"
+          novalidate="novalidate">
 		<div class="form-group" >
 			<label for="name" >Name</label >
 			<input type="text"
@@ -28,7 +30,12 @@
 			       id="name" >
 		</div >
 
-		<div class="form-group" >
+		<div class="form-group" ng-class="
+		    {
+            'has-error' :! theForm.email.$valid && (!theForm.$pristine || theForm.$submitted),
+            'has-success': theForm.email.$valid && !theForm.$pristine
+		    }
+		">
 			<label for="email" >Email</label >
 			<input type="email"
 			       class="form-control"
@@ -36,6 +43,17 @@
 			       id="email"
 			       name="email"
 			       required="required" >
+            <p class="help-block" ng-show="theForm.email.$error.required && (!theForm.$pristine || theForm.$submitted)">
+                This field is required
+            </p>
+            <p class="help-block" ng-show="theForm.email.$error.email && !theForm.$pristine">
+                Enter a valid e-mail addres
+            </p>
+
+            <pre>Validation? {{theForm.email.$error | json }}</pre>
+            <pre>Fiel Valid? {{theForm.email.$valid }}</pre>
+            <pre>Form Pristine? {{theForm.$pristine }}</pre>
+            <pre>Form Submited? {{theForm.$submitted }}</pre>
 		</div >
 
 		<div class="form-group" >
@@ -82,7 +100,7 @@
 
 	</form >
 
-	<pre>{{ formModel | json }}</pre>
+	<pre>{{ theForm | json }}</pre>
 
 </div >
 
