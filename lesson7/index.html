@@ -1,8 +1,9 @@
 <!DOCTYPE html >
 <html lang="en" ng-app="minmax">
 <head >
-	<title >Form Validation - Part 3</title >
+	<title >User Feedback</title >
 	<link href="../libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" >
+	<link href="../libs/ladda/dist/ladda-themeless.min.css" rel="stylesheet" >
 	<link href="main.css" rel="stylesheet" >
 </head >
 
@@ -11,7 +12,7 @@
 	<div class="container" >
 		<div class="navbar-header" >
 			<a class="navbar-brand"
-			   href="/" >Form Validation - Part 3
+			   href="/" >User Feedback
 			</a >
 		</div >
 	</div >
@@ -20,7 +21,8 @@
 <div class="container main-content" ng-controller="MinMaxCtrl">
 
 	<form ng-submit="onSubmit()"
-				novalidate="novalidate">
+				novalidate="novalidate"
+			  ng-hide="submitted" >
 		<div class="form-group" >
 			<label for="name" class="control-label">Name</label >
 			<input type="text"
@@ -87,20 +89,37 @@
 		</div >
 
 		<div class="form-group">
+
+			<div class="alert alert-danger text-center" ng-show="has_error">
+				<h3>There was a problem registering, please try again later!</h3>
+			</div>
+
 			<button class="btn btn-primary"
-							type="submit">Register
+			        ladda="submitting"
+			        data-style="expand-right"
+							type="submit">
+				<span ng-show="submitting">Registering</span>
+				<span ng-show="!submitting">Register</span>
 			</button>
 		</div>
 
 	</form >
 
-	<pre>{{ formModel | json }}</pre>
+	<!-- pre>{{ formModel | json }}</pre -->
+	<div class="alert alert-info text-center" ng-show="submitted">
+		<h3>Thanks for Registering!</h3>
+	</div>
+
+
 
 </div >
 
 
 <script src="../libs/angular/angular.min.js" ></script >
 <script src="../libs/angular-auto-validate/dist/jcs-auto-validate.min.js" ></script >
+<script src="../libs/ladda/dist/spin.min.js" ></script >
+<script src="../libs/ladda/dist/ladda.min.js" ></script >
+<script src="../libs/angular-ladda/dist/angular-ladda.min.js" ></script >
 
 <script src="main.js" ></script >
 
