@@ -55,9 +55,9 @@
                 </tr>
                 <tr ng-repeat="person in persons | filter: sensitiveSearch | orderBy: order"
                     ng-style="{
-                'background-color': $index == selectedIndex ? '#f7f7f7' : ''
+                'background-color': person.email == selectedPerson.email ? '#f7f7f7' : ''
             }"
-                    ng-click="selectPerson(person, $index)">
+                    ng-click="selectPerson(person)">
                     <td>{{ $index+1 }}</td>
                     <td>{{ person.name }}</td>
                     <td>{{ person.email }}</td>
