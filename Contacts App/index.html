@@ -3,6 +3,7 @@
 <head>
     <title>Contacts App</title>
     <link href="../libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../libs/ladda/dist/ladda-themeless.min.css" rel="stylesheet">
     <link href="main.css" rel="stylesheet">
 </head>
 
@@ -23,7 +24,7 @@
             <form class="form-inline well well-lg">
                 <span class="glyphicon glyphicon-search"></span>
                 <div class="form-group">
-                    <input ng-model="search" type="text" class="form-control" id="search" placeholder="Search ..." />
+                    <input ng-model="search" type="text" class="form-control" id="search" placeholder="Search ..."/>
                 </div>
                 <span class="glyphicon glyphicon glyphicon-sort-by-order"></span>
                 <div class="form-group">
@@ -61,7 +62,7 @@
             </table>
 
             <div class="alert alert-info" ng-show="contacts.persons.length == 0 && !contacts.isLoading">
-                No results for '<b>{{ search }}'</b>
+                No results for '<b>{{ search }}</b>'
             </div>
 
             <div class="spinner" ng-show="contacts.isLoading">
@@ -73,22 +74,102 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Detailed Information</div>
                 <div class="panel-body">
-                    <dl>
-                        <dd>Name</dd>
-                        <dt>{{ contacts.selectedPerson.name }}</dt>
-                        <dd>Email</dd>
-                        <dt>{{ contacts.selectedPerson.email }}</dt>
-                        <dd>Birthday</dd>
-                        <dt>{{ contacts.selectedPerson.birthdate | date:"longDate" }}</dt>
-                        <dd>Phone</dd>
-                        <dt>{{ contacts.selectedPerson.phonenumber }}</dt>
-                        <dd>Address</dd>
-                        <dt>{{ contacts.selectedPerson.address }}</dt>
-                        <dd>City</dd>
-                        <dt>{{ contacts.selectedPerson.city }}</dt>
-                        <dd>Country</dd>
-                        <dt>{{ contacts.selectedPerson.country }}</dt>
-                    </dl>
+                    <form class="form-horizontal" ng-submit="save()" novalidate>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Name</label>
+                            <div class="col-sm-9">
+                                <input type="text"
+                                       class="form-control"
+                                       name="name"
+                                       ng-model="contacts.selectedPerson.name"
+                                       required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Email</label>
+                            <div class="col-sm-9">
+                                <input type="email"
+                                       name="email"
+                                       class="form-control"
+                                       ng-model="contacts.selectedPerson.email"
+                                       required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Photo</label>
+                            <div class="col-sm-9">
+                                <input type="text"
+                                       class="form-control"
+                                       name="photo"
+                                       ng-model="contacts.selectedPerson.photo" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Sex</label>
+                            <div class="col-sm-9">
+
+                                <select name="sex"
+                                        class="form-control"
+                                        ng-model="contacts.selectedPerson.sex"
+                                        id="">
+                                    <option value="M">Male</option>
+                                    <option value="F">Female</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Birthday</label>
+                            <div class="col-sm-9">
+                                <input type="text"
+                                       name="bday"
+                                       class="form-control"
+                                       ng-model="contacts.selectedPerson.birthdate "
+                                       bs-datepicker />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Phone</label>
+                            <div class="col-sm-9">
+                                <input type="tel"
+                                       name="phone"
+                                       class="form-control"
+                                       ng-model="contacts.selectedPerson.phonenumber" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Address</label>
+                            <div class="col-sm-9">
+                                <input type="text"
+                                       name="address"
+                                       class="form-control"
+                                       ng-model="contacts.selectedPerson.address" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">City</label>
+                            <div class="col-sm-9">
+                                <input type="text"
+                                       name="city"
+                                       class="form-control"
+                                       ng-model="contacts.selectedPerson.city" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Country</label>
+                            <div class="col-sm-9">
+                                <input type="text"
+                                       name="country"
+                                       class="form-control"
+                                       ng-model="contacts.selectedPerson.country" />
+                            </div>
+
+                        </div>
+                        <div class="buttons">
+                            <button class="btn btn-primary btn-block"
+                                    ladda="contacts.isSaving"
+                                    type="submit">Save</button>
+                        </div>
+                    </form>
                 </div>
             </div>
             <!-- pre>{{ search }}</pre -->
@@ -102,6 +183,9 @@
 <script src="../libs/ngInfiniteScroll/build/ng-infinite-scroll.min.js"></script>
 <script src="../libs/spin.js/spin.js"></script>
 <script src="../libs/angular-spinner/angular-spinner.min.js"></script>
+<script src="../libs/angular-auto-validate/dist/jcs-auto-validate.min.js"></script>
+<script src="../libs/ladda/dist/ladda.min.js"></script>
+<script src="../libs/angular-ladda/dist/angular-ladda.min.js"></script>
 <script src="main.js"></script>
 </body>
 </html>
