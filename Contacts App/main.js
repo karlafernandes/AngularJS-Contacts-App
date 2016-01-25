@@ -4,7 +4,9 @@ var app = angular.module("codecraft", [
     "angularSpinner",
     "jcs-autoValidate",
     "angular-ladda",
-    "mgcrea.ngStrap"
+    "mgcrea.ngStrap",
+    "toaster",
+    "ngAnimate"
 ]);
 
 app.config(function($httpProvider, $resourceProvider, laddaProvider, $datepickerProvider){
@@ -82,7 +84,7 @@ app.controller('PersonListController', function ($scope, $modal, ContactService)
 });
 
 // $q create promisses which you can return from functions
-app.service('ContactService', function (Contact, $q) {
+app.service('ContactService', function (Contact, $q, toaster) {
 
     var self = {
         "page": 1,
@@ -146,7 +148,8 @@ app.service('ContactService', function (Contact, $q) {
             //Contact.update(person); simply update person
             //Contact.update(person).$promise.then(function(){
             person.$update().then(function(){
-                    self.isSaving = false;
+                self.isSaving = false;
+                toaster.pop("success", "Updated "+ person.name);
             });
         },
         "removeContact": function(person){
@@ -157,6 +160,7 @@ app.service('ContactService', function (Contact, $q) {
                 var index = self.persons.indexOf(person);
                 self.persons.splice(index, 1);
                 self.selectedPerson = null;
+                toaster.pop("success", "Deleted "+ person.name);
             });
         },
         "createContact": function(person){
@@ -171,6 +175,7 @@ app.service('ContactService', function (Contact, $q) {
                 //self.hasMore = true;
                 //self.page = 1;
                 //self.persons = [];
+                toaster.pop("success", "Created "+ person.name);
                 d.resolve();
             });
             return d.promise;
