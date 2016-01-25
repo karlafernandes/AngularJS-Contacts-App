@@ -48,11 +48,11 @@
                     </th>
                     <th>Birthday</th>
                 </tr>
-                <tr ng-repeat="person in filteredPersons = (persons | filter: sensitiveSearch | orderBy: order)"
+                <tr ng-repeat="person in filteredPersons = (contacts.persons | filter: sensitiveSearch | orderBy: order)"
                     ng-style="{
-                'background-color': person.email == selectedPerson.email ? '#f7f7f7' : ''
-            }"
-                    ng-click="selectPerson(person)">
+                    'background-color': person.email == contacts.selectedPerson.email ? '#f7f7f7' : ''
+                    }"
+                    ng-click="contacts.selectedPerson = person">
                     <td>{{ $index+1 }}</td>
                     <td>{{ person.name }}</td>
                     <td>{{ person.email }}</td>
@@ -71,19 +71,19 @@
                 <div class="panel-body">
                     <dl>
                         <dd>Name</dd>
-                        <dt>{{ selectedPerson.name }}</dt>
+                        <dt>{{ contacts.selectedPerson.name }}</dt>
                         <dd>Email</dd>
-                        <dt>{{ selectedPerson.email }}</dt>
+                        <dt>{{ contacts.selectedPerson.email }}</dt>
                         <dd>Birthday</dd>
-                        <dt>{{ selectedPerson.birthdate | date:"longDate" }}</dt>
+                        <dt>{{ contacts.selectedPerson.birthdate | date:"longDate" }}</dt>
                         <dd>Phone</dd>
-                        <dt>{{ selectedPerson.phonenumber }}</dt>
+                        <dt>{{ contacts.selectedPerson.phonenumber }}</dt>
                         <dd>Address</dd>
-                        <dt>{{ selectedPerson.address }}</dt>
+                        <dt>{{ contacts.selectedPerson.address }}</dt>
                         <dd>City</dd>
-                        <dt>{{ selectedPerson.city }}</dt>
+                        <dt>{{ contacts.selectedPerson.city }}</dt>
                         <dd>Country</dd>
-                        <dt>{{ selectedPerson.country }}</dt>
+                        <dt>{{ contacts.selectedPerson.country }}</dt>
                     </dl>
                 </div>
             </div>

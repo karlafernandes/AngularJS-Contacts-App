@@ -1,27 +1,33 @@
 var app = angular.module("codecraft", []);
 
-app.controller('PersonDetailController', function ($scope) {
-
+app.controller('PersonDetailController', function ($scope, ContactService) {
+    $scope.contacts = ContactService;
 });
 
-app.controller('PersonListController', function ($scope, $rootScope) {
+app.controller('PersonListController', function ($scope, ContactService) {
 
     $scope.search = "";
     $scope.order = "email";
-    $rootScope.selectedPerson = null;
+    $scope.contacts = ContactService;
 
-    $scope.selectPerson = function(person){
-        $rootScope.selectedPerson = person;
-    }
-
-    $scope.sensitiveSearch = function(person){
+    $scope.sensitiveSearch = function(person) {
         if ($scope.search) {
             return person.name.indexOf($scope.search) == 0 || person.email.indexOf($scope.search) == 0;
         }
         return true;
     }
 
-    $scope.persons = [
+});
+
+app.service('ContactService', function () {
+
+    return {
+        "addPerson": function(person){
+            this.persons.push(person);
+        },
+        "selectedPerson" :  null,
+        "selectedIndex" : null,
+        "persons" : [
         {
             "name": "Gregory Huffman",
             "email": "Praesent@pedenec.net",
@@ -921,7 +927,7 @@ app.controller('PersonListController', function ($scope, $rootScope) {
             "address": "Ap #384-5383 Montes, Av.",
             "city": "Perchtoldsdorf",
             "country": "Taiwan"
-        }
-    ]
+        }]
+    }
 
 });
