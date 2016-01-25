@@ -6,6 +6,7 @@
     <link href="../libs/bootstrap-additions/dist/bootstrap-additions.min.css" rel="stylesheet">
     <link href="../libs/angularjs-toaster/toaster.min.css" rel="stylesheet">
     <link href="../libs/ladda/dist/ladda-themeless.min.css" rel="stylesheet">
+    <link href="../libs/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="main.css" rel="stylesheet">
 </head>
 
@@ -25,11 +26,11 @@
     <div class="row">
         <div class="col-md-8" ng-controller="PersonListController">
             <form class="form-inline well well-lg">
-                <span class="glyphicon glyphicon-search"></span>
+                <span class="fa fa-search"></span>
                 <div class="form-group">
                     <input ng-model="search" type="text" class="form-control" id="search" placeholder="Search ..."/>
                 </div>
-                <span class="glyphicon glyphicon glyphicon-sort-by-order"></span>
+                <span class="fa fa-sort"></span>
                 <div class="form-group">
                     <select class="form-control" ng-model="order">
                         <option value="name">Name (ASC)</option>
@@ -46,27 +47,31 @@
             </form>
             <table class="table table-bordered" infinite-scroll="loadMore()" infinite-scroll-distance="1">
                 <tr>
-                    <th>#</th>
-                    <th>Name
-                        <span ng-click="order = 'name'" class="glyphicon glyphicon-menu-up"></span>
-                        <span ng-click="order = '-name'" class="glyphicon glyphicon-menu-down"></span>
+                    <th class="col-sm-1">#</th>
+                    <th class="col-sm-4">Name
+                        <div class="sortables pull-right">
+                            <span ng-click="order = 'name'" class="fa fa-sort-asc"></span>
+                            <span ng-click="order = '-name'" class="fa fa-sort-desc"></span>
+                        </div>
                     </th>
-                    <th>Email
-                        <span ng-click="order = 'email'" class="glyphicon glyphicon-menu-up"></span>
-                        <span ng-click="order = '-email'" class="glyphicon glyphicon-menu-down"></span>
+                    <th class="col-sm-4">Email
+                        <div class="sortables pull-right">
+                            <span ng-click="order = 'email'" class="fa fa-sort-asc"></span>
+                            <span ng-click="order = '-email'" class="fa fa-sort-desc"></span>
+                        </div>
                     </th>
-                    <th>Phone number</th>
+                    <th class="col-sm-3">Phone number</th>
                 </tr>
                 <tr ng-repeat="person in filteredPersons = (contacts.persons)"
                     ng-style="{
                     'background-color': person.email == contacts.selectedPerson.email ? '#f7f7f7' : ''
                     }"
                     ng-click="contacts.selectedPerson = person">
-                    <td><img ng-src="{{person.photo}}" alt="{{person.name}}" title="{{person.name}}"
+                    <td class="col-sm-1"><img ng-src="{{person.photo}}" alt="{{person.name}}" title="{{person.name}}"
                             class="img-circle img-responsive profile-photo"/></td>
-                    <td>{{ person.name }}</td>
-                    <td>{{ person.email }}</td>
-                    <td>{{ person.phonenumber }}</td>
+                    <td class="col-sm-4">{{ person.name }}</td>
+                    <td class="col-sm-4">{{ person.email }}</td>
+                    <td class="col-sm-3">{{ person.phonenumber }}</td>
                 </tr>
             </table>
 
