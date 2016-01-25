@@ -70,12 +70,15 @@ app.controller('PersonListController', function ($scope, $modal, ContactService)
 
     $scope.createContact = function(){
         console.log("Creating Contact");
-        $scope.contacts.createContact($scope.contacts.selectedPerson);
+        $scope.contacts.createContact($scope.contacts.selectedPerson)
+            .then(function(){
+                $scope.createModal.hide();
+            });
     };
-
 });
 
-app.service('ContactService', function (Contact) {
+// $q create promisses which you can return from functions
+app.service('ContactService', function (Contact, $q) {
 
     var self = {
         "page": 1,
@@ -154,10 +157,19 @@ app.service('ContactService', function (Contact) {
         },
         "createContact": function(person){
             console.log("Service Called Create");
+
+            var d = $q.defer();
             self.isSaving = true;
             Contact.save(person).$promise.then(function(){
                 self.isSaving = false;
+                self.persons.push(person);
+                //self.selectedPerson = null;
+                //self.hasMore = true;
+                //self.page = 1;
+                //self.persons = [];
+                d.resolve();
             });
+            return d.promise;
         },
     };
 
