@@ -1,4 +1,11 @@
-var app = angular.module("codecraft", []);
+var app = angular.module("codecraft", [
+    "ngResource"
+]);
+
+app.config(function($httpProvider, $resourceProvider){
+    $httpProvider.defaults.headers.common["Authorization"] = "Token edcfde75310244326fe1689e369f2e609fb7e4c4";
+    $resourceProvider.defaults.stripTrailingSlashes = false;
+});
 
 app.controller('PersonDetailController', function ($scope, ContactService) {
     $scope.contacts = ContactService;
