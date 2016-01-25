@@ -11,11 +11,18 @@ app.config(function($httpProvider, $resourceProvider, laddaProvider){
 });
 
 app.factory("Contact", function($resource){
-    return $resource("https://codecraftpro.com/api/samples/v1/contact/:id/");
+    return $resource("https://codecraftpro.com/api/samples/v1/contact/:id/",
+                    {id:"@id"},
+                    {update:{ method: "PUT"}}
+    );
 });
 
 app.controller('PersonDetailController', function ($scope, ContactService) {
     $scope.contacts = ContactService;
+
+    $scope.save = function(){
+        $scope.contacts.updateContact($scope.contacts.selectedPerson);
+    }
 });
 
 app.controller('PersonListController', function ($scope, ContactService) {
@@ -51,6 +58,7 @@ app.service('ContactService', function (Contact) {
         "page": 1,
         "hasMore": true,
         "isLoading": false,
+        "isSaving": false,
         "selectedPerson": null,
         "selectedIndex": null,
         "persons": [],
@@ -100,6 +108,15 @@ app.service('ContactService', function (Contact) {
             self.persons = [];
             self.ordering = order;
             self.loadContacts();
+        },
+        "updateContact": function(person) {
+            console.log("Service Called Update");
+            self.isSaving = true;
+            //Contact.update(person); simply update person
+            //Contact.update(person).$promise.then(function(){
+            person.$update().then(function(){
+                    self.isSaving = false;
+            });
         }
     };
 
