@@ -52,17 +52,18 @@
                         <span ng-click="order = 'email'" class="glyphicon glyphicon-menu-up"></span>
                         <span ng-click="order = '-email'" class="glyphicon glyphicon-menu-down"></span>
                     </th>
-                    <th>Birthday</th>
+                    <th>Phone number</th>
                 </tr>
                 <tr ng-repeat="person in filteredPersons = (contacts.persons)"
                     ng-style="{
                     'background-color': person.email == contacts.selectedPerson.email ? '#f7f7f7' : ''
                     }"
                     ng-click="contacts.selectedPerson = person">
-                    <td>{{ $index+1 }}</td>
+                    <td><img ng-src="{{person.photo}}" alt="{{person.name}}" title="{{person.name}}"
+                            class="img-circle img-responsive profile-photo"/></td>
                     <td>{{ person.name }}</td>
                     <td>{{ person.email }}</td>
-                    <td>{{ person.birthdate | date:"longDate" }}</td>
+                    <td>{{ person.phonenumber }}</td>
                 </tr>
             </table>
 
