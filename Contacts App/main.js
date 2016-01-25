@@ -1,13 +1,17 @@
 var app = angular.module("codecraft", []);
 
-app.controller('PersonsController', function ($scope) {
+app.controller('PersonDetailController', function ($scope) {
+
+});
+
+app.controller('PersonListController', function ($scope, $rootScope) {
 
     $scope.search = "";
     $scope.order = "email";
-    $scope.selectedPerson = null;
+    $rootScope.selectedPerson = null;
 
     $scope.selectPerson = function(person){
-        $scope.selectedPerson = person;
+        $rootScope.selectedPerson = person;
     }
 
     $scope.sensitiveSearch = function(person){

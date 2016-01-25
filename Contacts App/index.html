@@ -1,7 +1,7 @@
 <!DOCTYPE html >
 <html lang="en" ng-app="codecraft">
 <head>
-    <title>Lists Of Things</title>
+    <title>Contacts App</title>
     <link href="../libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="main.css" rel="stylesheet">
 </head>
@@ -11,16 +11,15 @@
     <div class="container">
         <div class="navbar-header">
             <a class="navbar-brand"
-               href="/">Lists Of Things
+               href="/">Contacts Application
             </a>
         </div>
     </div>
 </nav>
 
-<div class="container main-content" ng-controller="PersonsController">
-
+<div class="container main-content">
     <div class="row">
-        <div class="md-col-12">
+        <div class="col-md-8" ng-controller="PersonListController">
             <form class="form-inline well well-lg">
                 <span class="glyphicon glyphicon-search"></span>
                 <div class="form-group">
@@ -36,10 +35,6 @@
                     </select>
                 </div>
             </form>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-8">
             <table class="table table-bordered">
                 <tr>
                     <th>#</th>
@@ -70,7 +65,7 @@
                 </tr>
             </table>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4" ng-controller="PersonDetailController">
             <div class="panel panel-default">
                 <div class="panel-heading">Detailed Information</div>
                 <div class="panel-body">
