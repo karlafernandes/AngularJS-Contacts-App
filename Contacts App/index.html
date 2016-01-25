@@ -64,6 +64,10 @@
                     </td>
                 </tr>
             </table>
+            <div class="spinner" ng-show="contacts.isLoading">
+                <span us-spinner="{radius:8, width:5, lenght:3, lines:9}"></span>
+                <label>Loading...</label>
+            </div>
         </div>
         <div class="col-md-4" ng-controller="PersonDetailController">
             <div class="panel panel-default">
@@ -96,6 +100,8 @@
 <script src="../libs/angular/angular.min.js"></script>
 <script src="../libs/angular-resource/angular-resource.min.js"></script>
 <script src="../libs/ngInfiniteScroll/build/ng-infinite-scroll.min.js"></script>
+<script src="../libs/spin.js/spin.js"></script>
+<script src="../libs/angular-spinner/angular-spinner.min.js"></script>
 <script src="main.js"></script>
 </body>
 </html>
