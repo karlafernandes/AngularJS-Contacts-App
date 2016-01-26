@@ -1,0 +1,13 @@
+<form class="navbar-form">
+    <div class="form-group">
+        <input ng-model="contacts.search" type="text" class="search form-control navbar-form input-sm" id="search" placeholder="Search ..."/>
+    </div>
+    <div class="form-group">
+        <select class="form-control navbar-form input-sm" ng-model="contacts.ordering">
+            <option value="name">Name (ASC)</option>
+            <option value="-name">Name (DEC)</option>
+            <option value="email">E-mail (ASC)</option>
+            <option value="-email">E-mail (DEC)</option>
+        </select>
+    </div>
+</form>

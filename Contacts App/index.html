@@ -28,6 +28,9 @@
 
         <div class="collapse navbar-collapse" id="collapseMenu">
             <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <ui-view name="search"></ui-view>
+                </li>
                 <li ui-sref-active="active">
                     <a ui-sref="list">Search</a>
                 </li>
@@ -43,7 +46,7 @@
     <toaster-container></toaster-container>
     <div class="row">
         <div class="col-md-12">
-            <ui-view></ui-view>
+            <ui-view name="main"></ui-view>
         </div>
     </div>
 </div>
