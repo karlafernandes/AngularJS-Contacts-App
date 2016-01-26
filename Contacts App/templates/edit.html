@@ -5,16 +5,20 @@
             <form class="form-horizontal" ng-submit="save()" novalidate>
                 <ng-include src="'templates/form.html'"></ng-include>
                 <div class="buttons pull-right">
-                    <button class="btn btn-primary btn-sm"
-                            ladda="contacts.isSaving"
-                            type="submit">
-                        <span ng-if="mode == 'Edit'">Save</span>
-                        <span ng-if="mode != 'Edit'">Create</span>
+                    <button class="btn btn-danger btn-sm"
+                            ng-if="mode != 'Edit'"
+                            ng-click="cancel()">Cancel
                     </button>
                     <button class="btn btn-danger btn-sm"
                             ladda="contacts.isDeleting"
                             ng-if="mode == 'Edit'"
                             ng-click="remove()">Delete
+                    </button>
+                    <button class="btn btn-primary btn-sm"
+                            ladda="contacts.isSaving"
+                            type="submit">
+                        <span ng-if="mode == 'Edit'">Save</span>
+                        <span ng-if="mode != 'Edit'">Create</span>
                     </button>
                 </div>
             </form>

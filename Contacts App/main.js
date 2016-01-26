@@ -87,6 +87,10 @@ app.controller("PersonCreateController", function ($scope, $state, ContactServic
     $scope.contacts = ContactService;
     $scope.contacts.selectedPerson = null;
 
+    $scope.cancel = function () {
+        $state.go("list");
+    };
+
     $scope.save = function () {
         console.log("Creating Contact");
         $scope.contacts.createContact($scope.contacts.selectedPerson).then(function () {
