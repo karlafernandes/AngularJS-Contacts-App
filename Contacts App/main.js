@@ -81,6 +81,12 @@ app.filter("defaultImage", function () {
 
 });
 
+app.directive("ccSpinner", function () {
+    return {
+        "templateUrl": "templates/spinner.html"
+    }
+});
+
 app.controller("PersonCreateController", function ($scope, $state, ContactService) {
 
     $scope.mode = "Create";
