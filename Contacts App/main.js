@@ -99,9 +99,19 @@ app.directive("ccCard", function () {
         "templateUrl": "templates/card.html",
         "scope": {
             "user": "=",
-            "deleteUser": "&"
+            // "deleteUser": "&"
+        },
+        "controller": function ($scope, ContactService) {
+            $scope.isDeleting = false;
+            $scope.deleteUser = function () {
+                console.log("Delete ME!");
+                $scope.isDeleting = true;
+                ContactService.removeContact($scope.user).then(function () {
+                    $scope.isDeleting = false;
+                });
+            };
         }
-    }
+    };
 });
 
 app.controller("PersonCreateController", function ($scope, $state, ContactService) {
@@ -147,22 +157,9 @@ app.controller("PersonListController", function ($scope, $modal, ContactService)
     $scope.order = "email";
     $scope.contacts = ContactService;
 
-    $scope.parentDeleteUser = function (user) {
-        $scope.contacts.removeContact(user);
-    };
-
     $scope.loadMore = function () {
         console.log("Load More!");
         $scope.contacts.loadMore();
-    };
-
-    $scope.showCreateModal = function () {
-        $scope.contacts.selectedPerson = {};
-        $scope.createModal = $modal({
-            scope: $scope,
-            template: "templates/modal.create.tpl.html",
-            show: true
-        })
     };
 
 });
