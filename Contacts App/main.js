@@ -85,7 +85,10 @@ app.directive("ccSpinner", function () {
     return {
         "transclude": true,
         "restrict": "E", // Attribute Element Class AEC
-        "templateUrl": "templates/spinner.html"
+        "templateUrl": "templates/spinner.html",
+        "scope": {
+            "isLoading": "="
+        }
     }
 });
 
