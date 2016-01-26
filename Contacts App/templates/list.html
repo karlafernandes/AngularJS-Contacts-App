@@ -12,12 +12,6 @@
             <option value="-email">E-mail (DEC)</option>
         </select>
     </div>
-    <div class="form-group pull-right">
-        <button class="btn btn-primary btn-sm"
-                ladda="contacts.isCreating"
-                ng-click="showCreateModal()">Create
-        </button>
-    </div>
 </form>
 <table class="table table-bordered" infinite-scroll="loadMore()" infinite-scroll-distance="1">
     <tr>
@@ -50,7 +44,7 @@
 </table>
 
 <div class="alert alert-info" ng-show="contacts.persons.length == 0 && !contacts.isLoading">
-    No results for '<b>{{ search }}</b>'
+    No results for '<b>{{ contacts.search }}</b>'
 </div>
 
 <div class="spinner" ng-show="contacts.isLoading">

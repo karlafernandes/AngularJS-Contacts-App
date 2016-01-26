@@ -15,9 +15,26 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapseMenu" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
             <a class="navbar-brand"
                href="/">Contacts Application
             </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="collapseMenu">
+            <ul class="nav navbar-nav navbar-right">
+                <li ui-sref-active="active">
+                    <a ui-sref="list">Search</a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="create">Create</a>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>
@@ -33,6 +50,8 @@
 
 <!-- script type="text/ng-template" id="templates/form.html"> inline template</script -->
 
+<script src="../libs/jquery/dist/jquery.min.js"></script>
+<script src="../libs/bootstrap/js/collapse.js"></script>
 <script src="../libs/angular/angular.min.js"></script>
 <script src="../libs/angular-resource/angular-resource.min.js"></script>
 <script src="../libs/angular-animate/angular-animate.min.js"></script>
