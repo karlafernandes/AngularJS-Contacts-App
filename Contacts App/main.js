@@ -48,8 +48,8 @@ app.config(function($httpProvider, $resourceProvider, laddaProvider, $datepicker
 
 app.factory("Contact", function($resource){
     return $resource("https://codecraftpro.com/api/samples/v1/contact/:id/",
-                    {id:"@id"},
-                    {update:{ method: "PUT"}}
+        {id:"@id"},
+        {update:{ method: "PUT"}}
     );
 });
 
@@ -58,20 +58,20 @@ app.filter("defaultImage", function(){
     return function(input, param){
         if (!input){
             return param;
-        } else {
-            return input;
         }
+        return input;
     };
 
 });
 
-app.controller('PersonCreateController', function ($scope, $stateParams, $state, ContactService) {
+app.controller('PersonCreateController', function ($scope, $state, ContactService) {
+
     $scope.contacts = ContactService;
 
-    $scope.createContact = function () {
+    $scope.save = function () {
         console.log("Creating Contact");
         $scope.contacts.createContact($scope.contacts.selectedPerson).then(function () {
-                $state.go("list");
+            $state.go("list");
         })
     };
 });
@@ -84,7 +84,8 @@ app.controller('PersonDetailController', function ($scope, $stateParams, $state,
         $scope.contacts.updateContact($scope.contacts.selectedPerson).then(function(){
             $state.go("list");
         });
-    }
+
+    };
 
     $scope.cancel = function(){
         $state.go("list");
@@ -106,7 +107,7 @@ app.controller('PersonDetailController', function ($scope, $stateParams, $state,
 app.controller('PersonListController', function ($scope, $modal, ContactService) {
 
     $scope.search = "";
-    $scope.order = "name";
+    $scope.order = "email";
     $scope.contacts = ContactService;
 
     $scope.loadMore = function(){
@@ -118,10 +119,11 @@ app.controller('PersonListController', function ($scope, $modal, ContactService)
         $scope.contacts.selectedPerson = {};
         $scope.createModal = $modal({
             scope: $scope,
-            template: "templates/modal.create.tlp.html",
+            template: "templates/modal.create.tpl.html",
             show: true
         })
     };
+
 });
 
 // $q create promisses which you can return from functions
@@ -134,7 +136,6 @@ app.service('ContactService', function (Contact, $rootScope, $q, toaster) {
         "isSaving": false,
         "isDeleting": false,
         "selectedPerson": null,
-        "selectedIndex": null,
         "persons": [],
         "search": null,
         "ordering": "name",
@@ -152,7 +153,7 @@ app.service('ContactService', function (Contact, $rootScope, $q, toaster) {
                     console.log(data);
                     angular.forEach(data.results, function (person) {
                         self.persons.push(new Contact(person));
-                    })
+                    });
                     if (!data.next) {
                         self.hasMore = false;
                     }
@@ -249,8 +250,8 @@ app.service('ContactService', function (Contact, $rootScope, $q, toaster) {
         }
     };
 
-    self.watchFilters();
     self.loadContacts();
+    self.watchFilters();
     return self;
 
 });
