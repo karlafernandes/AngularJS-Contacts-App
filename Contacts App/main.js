@@ -15,10 +15,16 @@ var app = angular.module("codecraft", [
 // #/edit/:id - Edit a contact
 
 app.config(function($stateProvider, $urlRouterProvider){
-    $stateProvider.state("list", {
+    $stateProvider
+    .state("list", {
         url: "/",
         templateUrl: "templates/list.html",
         controller: "PersonListController",
+    })
+    .state("edit", {
+        url: "/edit/:email", // $stateParams email
+        templateUrl: "templates/edit.html",
+        controller: "PersonDetailController",
     });
     $urlRouterProvider.otherwise("/");
 });
@@ -54,8 +60,9 @@ app.filter("defaultImage", function(){
 
 });
 
-app.controller('PersonDetailController', function ($scope, ContactService) {
+app.controller('PersonDetailController', function ($scope, $stateParams, ContactService) {
     $scope.contacts = ContactService;
+    $scope.contacts.selectedPerson = $scope.contacts.getPerson($stateParams.email);
 
     $scope.save = function(){
         $scope.contacts.updateContact($scope.contacts.selectedPerson);
@@ -123,9 +130,6 @@ app.service('ContactService', function (Contact, $q, toaster) {
         "persons": [],
         "search": null,
         "ordering":null,
-        "addPerson": function(person){
-            this.persons.push(person);
-        },
         "loadContacts": function() {
             if (self.hasMore && !self.isLoading) {
                 self.isLoading = true;
@@ -152,6 +156,15 @@ app.service('ContactService', function (Contact, $q, toaster) {
             if(self.hasMore && !self.isLoading){
                 self.page++;
                 self.loadContacts();
+            }
+        },
+        "getPerson": function(email){
+            console.log(email);
+            for (var i = 0; i < self.persons.length; i++){
+                var obj = self.persons[i];
+                if(obj.email == email){
+                    return obj;
+                }
             }
         },
         "doSearch": function(search){
@@ -196,11 +209,10 @@ app.service('ContactService', function (Contact, $q, toaster) {
             self.isSaving = true;
             Contact.save(person).$promise.then(function(){
                 self.isSaving = false;
-                self.persons.push(person);
-                //self.selectedPerson = null;
-                //self.hasMore = true;
-                //self.page = 1;
-                //self.persons = [];
+                self.selectedPerson = null;
+                self.hasMore = true;
+                self.page = 1;
+                self.persons = [];
                 toaster.pop("success", "Created "+ person.name);
                 d.resolve();
             });

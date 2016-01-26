@@ -37,10 +37,9 @@
         <th class="col-sm-3">Phone number</th>
     </tr>
     <tr ng-repeat="person in filteredPersons = (contacts.persons)"
-        ng-style="{
-                    'background-color': person.email == contacts.selectedPerson.email ? '#f7f7f7' : ''
-                    }"
-        ng-click="contacts.selectedPerson = person">
+        ng-style="{'background-color': person.email == contacts.selectedPerson.email ? '#f7f7f7' : '' }"
+        ng-click="contacts.selectedPerson = person"
+        ui-sref="edit({email:person.email})">
         <td class="col-sm-1"><img ng-src="{{ person.photo | defaultImage:'avatar.png' }}"
                                   alt="{{person.name}}" title="{{person.name}}"
                                   class="img-circle img-responsive profile-photo"/></td>
