@@ -68,7 +68,7 @@
                     'background-color': person.email == contacts.selectedPerson.email ? '#f7f7f7' : ''
                     }"
                     ng-click="contacts.selectedPerson = person">
-                    <td class="col-sm-1"><img ng-src="{{ person.photo | defaultImage }}"
+                    <td class="col-sm-1"><img ng-src="{{ person.photo | defaultImage:'avatar.png' }}"
                                               alt="{{person.name}}" title="{{person.name}}"
                                               class="img-circle img-responsive profile-photo"/></td>
                     <td class="col-sm-4">{{ person.name }}</td>

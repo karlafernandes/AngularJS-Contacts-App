@@ -31,8 +31,9 @@ app.factory("Contact", function($resource){
 app.filter("defaultImage", function(){
 
     return function(input, param){
+        console.log(input + " " + param)
         if (!input){
-            return "avatar.png";
+            return param;
         } else {
             return input;
         }
