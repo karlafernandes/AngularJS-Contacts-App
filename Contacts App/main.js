@@ -84,11 +84,22 @@ app.filter("defaultImage", function () {
 app.directive("ccSpinner", function () {
     return {
         "transclude": true,
-        "restrict": "E", // Attribute Element Class AEC
+        "restrict": "AE", // Attribute Element Class AEC
         "templateUrl": "templates/spinner.html",
         "scope": {
             "isLoading": "=",
             "message": "@"
+        }
+    }
+});
+
+app.directive("ccCard", function () {
+    return {
+        "restrict": "AE",
+        "templateUrl": "templates/card.html",
+        "scope": {
+            "user": "=",
+            "deleteUser": "&"
         }
     }
 });
@@ -135,6 +146,10 @@ app.controller("PersonListController", function ($scope, $modal, ContactService)
     $scope.search = "";
     $scope.order = "email";
     $scope.contacts = ContactService;
+
+    $scope.parentDeleteUser = function (user) {
+        $scope.contacts.removeContact(user);
+    };
 
     $scope.loadMore = function () {
         console.log("Load More!");

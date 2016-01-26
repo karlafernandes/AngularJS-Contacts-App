@@ -1,4 +1,16 @@
-<table class="table table-bordered" infinite-scroll="loadMore()" infinite-scroll-distance="1">
+<div class="row"
+     infinite-scroll="loadMore()"
+     infinite-scroll-immediate-check="false"
+     infinite-scroll-distance="1">
+
+    <cc-card ng-repeat="person in contacts.persons"
+             user="person"
+             delete-user="parentDeleteUser">
+    </cc-card>
+
+</div>
+
+<!-- table class="table table-bordered" infinite-scroll="loadMore()" infinite-scroll-distance="1">
     <tr>
         <th class="col-sm-1">#</th>
         <th class="col-sm-4">Name
@@ -26,7 +38,7 @@
         <td class="col-sm-4">{{ person.email }}</td>
         <td class="col-sm-3">{{ person.phonenumber }}</td>
     </tr>
-</table>
+</table -->
 
 <div class="alert alert-info" ng-show="contacts.persons.length == 0 && !contacts.isLoading">
     No results for '<b>{{ contacts.search }}</b>'
