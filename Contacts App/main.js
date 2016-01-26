@@ -60,23 +60,31 @@ app.filter("defaultImage", function(){
 
 });
 
-app.controller('PersonDetailController', function ($scope, $stateParams, ContactService) {
+app.controller('PersonDetailController', function ($scope, $stateParams, $state, ContactService) {
     $scope.contacts = ContactService;
     $scope.contacts.selectedPerson = $scope.contacts.getPerson($stateParams.email);
 
     $scope.save = function(){
-        $scope.contacts.updateContact($scope.contacts.selectedPerson);
+        $scope.contacts.updateContact($scope.contacts.selectedPerson).then(function(){
+            $state.go("list");
+        });
+    }
+
+    $scope.cancel = function(){
+        $state.go("list");
     }
 
     $scope.remove = function(){
-        $scope.contacts.removeContact($scope.contacts.selectedPerson);
+        $scope.contacts.removeContact($scope.contacts.selectedPerson).then(function(){
+            $state.go("list");
+        });
     }
 });
 
 app.controller('PersonListController', function ($scope, $modal, ContactService) {
 
     $scope.search = "";
-    $scope.order = "email";
+    $scope.order = "name";
     $scope.contacts = ContactService;
 
     $scope.loadMore = function(){
@@ -183,24 +191,30 @@ app.service('ContactService', function (Contact, $q, toaster) {
         },
         "updateContact": function(person) {
             console.log("Service Called Update");
+
+            var d = $q.defer();
             self.isSaving = true;
-            //Contact.update(person); simply update person
-            //Contact.update(person).$promise.then(function(){
-            person.$update().then(function(){
+            Contact.update(person).$promise.then(function(){
                 self.isSaving = false;
                 toaster.pop("success", "Updated "+ person.name);
+                d.resolve();
             });
+            return d.promise;
         },
         "removeContact": function(person){
             console.log("Service Called Remove");
+
+            var d = $q.defer();
             self.isDeleting = true;
-            person.$remove().then(function(){
+            Contact.remove(person).$promise.then(function(){
                 self.isDeleting = false;
                 var index = self.persons.indexOf(person);
                 self.persons.splice(index, 1);
                 self.selectedPerson = null;
                 toaster.pop("success", "Deleted "+ person.name);
+                d.resolve();
             });
+            return d.promise;
         },
         "createContact": function(person){
             console.log("Service Called Create");
