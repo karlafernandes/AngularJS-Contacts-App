@@ -1,11 +1,11 @@
 <form class="form-inline well well-lg">
     <span class="fa fa-search"></span>
     <div class="form-group">
-        <input ng-model="search" type="text" class="form-control" id="search" placeholder="Search ..."/>
+        <input ng-model="contacts.search" type="text" class="form-control" id="search" placeholder="Search ..."/>
     </div>
     <span class="fa fa-sort"></span>
     <div class="form-group">
-        <select class="form-control" ng-model="order">
+        <select class="form-control" ng-model="contacts.ordering">
             <option value="name">Name (ASC)</option>
             <option value="-name">Name (DEC)</option>
             <option value="email">E-mail (ASC)</option>
