@@ -47,10 +47,11 @@ app.config(function ($httpProvider, $resourceProvider, laddaProvider, $datepicke
 });
 
 app.factory("Contact", function ($resource) {
-    return $resource("https://codecraftpro.com/api/samples/v1/contact/:id/",
-        {id: "@id"},
-        {update: {method: "PUT"}}
-    );
+    return $resource("https://codecraftpro.com/api/samples/v1/contact/:id/", {id: "@id"}, {
+        update: {
+            method: "PUT"
+        }
+    });
 });
 
 app.filter("defaultImage", function () {
@@ -66,7 +67,9 @@ app.filter("defaultImage", function () {
 
 app.controller("PersonCreateController", function ($scope, $state, ContactService) {
 
+    $scope.mode = "Create";
     $scope.contacts = ContactService;
+    $scope.contacts.selectedPerson = null;
 
     $scope.save = function () {
         console.log("Creating Contact");
@@ -77,6 +80,8 @@ app.controller("PersonCreateController", function ($scope, $state, ContactServic
 });
 
 app.controller("PersonDetailController", function ($scope, $stateParams, $state, ContactService) {
+
+    $scope.mode = "Edit";
     $scope.contacts = ContactService;
     $scope.contacts.selectedPerson = $scope.contacts.getPerson($stateParams.email);
 
@@ -84,18 +89,7 @@ app.controller("PersonDetailController", function ($scope, $stateParams, $state,
         $scope.contacts.updateContact($scope.contacts.selectedPerson).then(function () {
             $state.go("list");
         });
-
     };
-
-    $scope.cancel = function () {
-        $state.go("list");
-    }
-
-    $scope.create = function () {
-        $scope.contacts.createContact($scope.contacts.selectedPerson).then(function () {
-            $state.go("list");
-        });
-    }
 
     $scope.remove = function () {
         $scope.contacts.removeContact($scope.contacts.selectedPerson).then(function () {
@@ -134,7 +128,6 @@ app.service("ContactService", function (Contact, $rootScope, $q, toaster) {
         "hasMore": true,
         "isLoading": false,
         "isSaving": false,
-        "isDeleting": false,
         "selectedPerson": null,
         "persons": [],
         "search": null,

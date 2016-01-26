@@ -1,16 +1,23 @@
 <div class="col-md-8 col-md-offset-2">
     <div class="panel panel-default">
-        <div class="panel-heading">Detailed Information
-            <button class="btn btn-danger btn-xs pull-right"
-                    ladda="contacts.isDeleting"
-                    ng-click="remove()">Delete
-            </button>
-        </div>
+        <div class="panel-heading">{{ mode }}</div>
         <div class="panel-body">
             <form class="form-horizontal" ng-submit="save()" novalidate>
                 <ng-include src="'templates/form.html'"></ng-include>
+                <div class="buttons pull-right">
+                    <button class="btn btn-primary btn-sm"
+                            ladda="contacts.isSaving"
+                            type="submit">
+                        <span ng-if="mode == 'Edit'">Save</span>
+                        <span ng-if="mode != 'Edit'">Create</span>
+                    </button>
+                    <button class="btn btn-danger btn-sm"
+                            ladda="contacts.isDeleting"
+                            ng-if="mode == 'Edit'"
+                            ng-click="remove()">Delete
+                    </button>
+                </div>
             </form>
         </div>
     </div>
-    <!-- pre>{{ search }}</pre -->
 </div>
