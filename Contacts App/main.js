@@ -83,7 +83,8 @@ app.filter("defaultImage", function () {
 
 app.directive("ccSpinner", function () {
     return {
-        "restrict": "AEC", // Attribute Element Class
+        "transclude": true,
+        "restrict": "E", // Attribute Element Class AEC
         "templateUrl": "templates/spinner.html"
     }
 });
