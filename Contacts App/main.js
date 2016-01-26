@@ -6,7 +6,8 @@ var app = angular.module("codecraft", [
     "angular-ladda",
     "mgcrea.ngStrap",
     "toaster",
-    "ngAnimate"
+    "ngAnimate",
+    "ui.router"
 ]);
 
 app.config(function($httpProvider, $resourceProvider, laddaProvider, $datepickerProvider){
@@ -31,7 +32,6 @@ app.factory("Contact", function($resource){
 app.filter("defaultImage", function(){
 
     return function(input, param){
-        console.log(input + " " + param)
         if (!input){
             return param;
         } else {
