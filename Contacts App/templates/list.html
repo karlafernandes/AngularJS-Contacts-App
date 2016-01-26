@@ -1,0 +1,60 @@
+<form class="form-inline well well-lg">
+    <span class="fa fa-search"></span>
+    <div class="form-group">
+        <input ng-model="search" type="text" class="form-control" id="search" placeholder="Search ..."/>
+    </div>
+    <span class="fa fa-sort"></span>
+    <div class="form-group">
+        <select class="form-control" ng-model="order">
+            <option value="name">Name (ASC)</option>
+            <option value="-name">Name (DEC)</option>
+            <option value="email">E-mail (ASC)</option>
+            <option value="-email">E-mail (DEC)</option>
+        </select>
+    </div>
+    <div class="form-group pull-right">
+        <button class="btn btn-primary btn-sm"
+                ladda="contacts.isCreating"
+                ng-click="showCreateModal()">Create
+        </button>
+    </div>
+</form>
+<table class="table table-bordered" infinite-scroll="loadMore()" infinite-scroll-distance="1">
+    <tr>
+        <th class="col-sm-1">#</th>
+        <th class="col-sm-4">Name
+            <div class="sortables pull-right">
+                <span ng-click="order = 'name'" class="fa fa-sort-asc"></span>
+                <span ng-click="order = '-name'" class="fa fa-sort-desc"></span>
+            </div>
+        </th>
+        <th class="col-sm-4">Email
+            <div class="sortables pull-right">
+                <span ng-click="order = 'email'" class="fa fa-sort-asc"></span>
+                <span ng-click="order = '-email'" class="fa fa-sort-desc"></span>
+            </div>
+        </th>
+        <th class="col-sm-3">Phone number</th>
+    </tr>
+    <tr ng-repeat="person in filteredPersons = (contacts.persons)"
+        ng-style="{
+                    'background-color': person.email == contacts.selectedPerson.email ? '#f7f7f7' : ''
+                    }"
+        ng-click="contacts.selectedPerson = person">
+        <td class="col-sm-1"><img ng-src="{{ person.photo | defaultImage:'avatar.png' }}"
+                                  alt="{{person.name}}" title="{{person.name}}"
+                                  class="img-circle img-responsive profile-photo"/></td>
+        <td class="col-sm-4">{{ person.name }}</td>
+        <td class="col-sm-4">{{ person.email }}</td>
+        <td class="col-sm-3">{{ person.phonenumber }}</td>
+    </tr>
+</table>
+
+<div class="alert alert-info" ng-show="contacts.persons.length == 0 && !contacts.isLoading">
+    No results for '<b>{{ search }}</b>'
+</div>
+
+<div class="spinner" ng-show="contacts.isLoading">
+    <span us-spinner="{radius:8, width:5, lenght:3, lines:9}"></span>
+    <label>Loading...</label>
+</div>

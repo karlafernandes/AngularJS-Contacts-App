@@ -10,6 +10,19 @@ var app = angular.module("codecraft", [
     "ui.router"
 ]);
 
+// #/ - List Of Contacts + Search + Filtering
+// #/create - Create a contact
+// #/edit/:id - Edit a contact
+
+app.config(function($stateProvider, $urlRouterProvider){
+    $stateProvider.state("list", {
+        url: "/",
+        templateUrl: "templates/list.html",
+        controller: "PersonListController",
+    });
+    $urlRouterProvider.otherwise("/");
+});
+
 app.config(function($httpProvider, $resourceProvider, laddaProvider, $datepickerProvider){
     $httpProvider.defaults.headers.common["Authorization"] = "Token edcfde75310244326fe1689e369f2e609fb7e4c4";
     $resourceProvider.defaults.stripTrailingSlashes = false;
